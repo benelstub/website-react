@@ -1,14 +1,33 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React from "react";
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
+} from "@material-tailwind/react";
+import { Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "@material-tailwind/react";
+import { GlobalNav } from "./components/global/GlobalNav.jsx";
+import { Contact } from "./pages/Contact.jsx";
+import { Home } from "./pages/home.jsx";
+import { ErrorPage } from "./pages/ErrorPage";
+
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [open, setOpen] = React.useState(1);
+
+  const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
     <>
-      <h1 className="text-blue-500">CUNT</h1>
+      <ThemeProvider>
+        <GlobalNav />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/*" element={<ErrorPage />} />
+        </Routes>
+      </ThemeProvider>
     </>
   );
 }
